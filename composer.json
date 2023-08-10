@@ -1,0 +1,67 @@
+{
+    "name": "ffi/ide-helper-generator",
+    "type": "library",
+    "description": "FFI IDE helper generator for PHP",
+    "license": "MIT",
+    "keywords": ["ffi", "generator", "ide", "helper", "autocomplete", "autocompletion", "utility"],
+    "support": {
+        "source": "https://github.com/php-ffi/ide-helper-generator",
+        "issues": "https://github.com/php-ffi/ide-helper-generator/issues",
+        "docs": "https://github.com/php-ffi/ide-helper-generator/blob/master/README.md"
+    },
+    "authors": [
+        {
+            "name": "Nesmeyanov Kirill",
+            "email": "nesk@xakep.ru",
+            "homepage": "https://nesk.me",
+            "role": "maintainer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-dom": "*",
+        "ext-ffi": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "nikic/php-parser": "^4.16",
+        "symfony/process": "^5.4|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FFI\\Generator\\": "src"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.22",
+        "phpunit/phpunit": "^10.3",
+        "symfony/var-dumper": "^5.4|^6.0",
+        "vimeo/psalm": "^5.14"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FFI\\Generator\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "psalm": "@psalm:check",
+        "psalm:check": "psalm --no-cache",
+        "psalm:fix": "psalm --no-cache --alter",
+        "phpcs": "@phpcs:check",
+        "phpcs:check": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --dry-run",
+        "phpcs:fix": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes",
+        "test": "@test:unit",
+        "test:unit": "phpunit --testdox"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.x-dev",
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
