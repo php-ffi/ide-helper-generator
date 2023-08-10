@@ -20,7 +20,8 @@ final class TypeInfo
         public array $docTypes = [],
         public bool $const = false,
         public array $expectedValues = [],
-    ) {}
+    ) {
+    }
 
     public function addType(string ...$types): void
     {
@@ -66,13 +67,13 @@ final class TypeInfo
         $types = \array_values(\array_unique($this->phpTypes));
 
         if (\count($types) > 1 && \in_array('void', $types, true)) {
-            $types = \array_filter($types, static fn(string $type): bool => $type !== 'void');
+            $types = \array_filter($types, static fn (string $type): bool => $type !== 'void');
         }
 
         // In case of type is "null|T"
         if (\count($types) === 2 && \in_array('null', $types, true)) {
             // Replace to "?T"
-            $type = \array_filter($types, static fn(string $type): bool => $type !== 'null');
+            $type = \array_filter($types, static fn (string $type): bool => $type !== 'null');
 
             return '?' . \reset($type);
         }

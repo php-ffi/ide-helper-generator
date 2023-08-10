@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\PhpStormMetadataGenerator;
+namespace FFI\Generator\PhpStormMetadataGenerator;
 
-use FFI\AutocompleteGenerator\Node\FunctionNode;
-use FFI\AutocompleteGenerator\Node\LocationNode;
-use FFI\AutocompleteGenerator\Node\NamespaceNode;
-use FFI\AutocompleteGenerator\Node\Type\TypeDefinitionNode;
+use FFI\Generator\Node\FunctionNode;
+use FFI\Generator\Node\LocationNode;
+use FFI\Generator\Node\NamespaceNode;
+use FFI\Generator\Node\Type\TypeDefinitionNode;
 use PhpParser\Node\Stmt;
 
 abstract class Visitor

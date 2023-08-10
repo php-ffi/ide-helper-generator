@@ -13,7 +13,8 @@ final class LazyInitializedResult extends Result
      */
     public function __construct(
         private readonly \Closure $initializer,
-    ) {}
+    ) {
+    }
 
     public function getContents(): string
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node;
+namespace FFI\Generator\Node;
 
 /**
  * @property-read non-empty-string $name

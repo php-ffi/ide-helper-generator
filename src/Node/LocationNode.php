@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node;
+namespace FFI\Generator\Node;
 
 final class LocationNode extends Node
 {
@@ -13,7 +13,8 @@ final class LocationNode extends Node
         #[Visitable]
         public readonly FileNode $file,
         public readonly int $line = 0,
-    ) {}
+    ) {
+    }
 
     /**
      * @param list<non-empty-string> $excludes

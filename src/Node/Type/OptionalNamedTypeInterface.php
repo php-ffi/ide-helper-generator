@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node\Type;
+namespace FFI\Generator\Node\Type;
 
-use FFI\AutocompleteGenerator\Node\OptionalNamedNodeInterface;
+use FFI\Generator\Node\OptionalNamedNodeInterface;
 
 interface OptionalNamedTypeInterface extends OptionalNamedNodeInterface, TypeInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node\Type;
+namespace FFI\Generator\Node\Type;
 
-use FFI\AutocompleteGenerator\Node\EnumValueNode;
-use FFI\AutocompleteGenerator\Node\LocationNode;
-use FFI\AutocompleteGenerator\Node\OptionalNamedNode;
-use FFI\AutocompleteGenerator\Node\Visitable;
+use FFI\Generator\Node\EnumValueNode;
+use FFI\Generator\Node\LocationNode;
+use FFI\Generator\Node\OptionalNamedNode;
+use FFI\Generator\Node\Visitable;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor

@@ -418,4 +418,3 @@ final class Builder implements \IteratorAggregate
         }
     }
 }
-

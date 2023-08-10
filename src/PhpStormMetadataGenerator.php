@@ -53,11 +53,13 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
     public function generate(iterable $namespaces): ResultInterface
     {
         $phpstormMetadata = new Namespace_(
-            name: new Name('PHPSTORM_META'), attributes: ['kind' => Namespace_::KIND_BRACED],
+            name: new Name('PHPSTORM_META'),
+            attributes: ['kind' => Namespace_::KIND_BRACED],
         );
 
         $externalMetadata = new Namespace_(
-            name: new Name($this->naming->getEntrypointNamespace()), attributes: ['kind' => Namespace_::KIND_BRACED],
+            name: new Name($this->naming->getEntrypointNamespace()),
+            attributes: ['kind' => Namespace_::KIND_BRACED],
         );
 
         foreach ($namespaces as $namespace) {

@@ -20,7 +20,8 @@ class SimpleNamingStrategy implements NamingStrategyInterface
         public readonly string $entrypoint = 'FFI\\Generated\\EntrypointInterface',
         public readonly string $externalNamespace = 'FFI\\Generated',
         public readonly string $internalNamespace = 'PHPSTORM_META',
-    ) {}
+    ) {
+    }
 
     public function getEntrypoint(): string
     {

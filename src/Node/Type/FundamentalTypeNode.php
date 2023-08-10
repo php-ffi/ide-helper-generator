@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node\Type;
+namespace FFI\Generator\Node\Type;
 
-use FFI\AutocompleteGenerator\Node\NamedNode;
+use FFI\Generator\Node\NamedNode;
 
 final class FundamentalTypeNode extends NamedNode implements NamedTypeInterface
 {

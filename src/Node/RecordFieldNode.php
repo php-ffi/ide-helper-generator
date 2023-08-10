@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node;
+namespace FFI\Generator\Node;
 
-use FFI\AutocompleteGenerator\Node\Type\TypeInterface;
+use FFI\Generator\Node\Type\TypeInterface;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor

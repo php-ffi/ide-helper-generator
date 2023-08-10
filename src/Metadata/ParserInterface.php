@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Metadata;
+namespace FFI\Generator\Metadata;
 
-use FFI\AutocompleteGenerator\Node\NamespaceNode;
+use FFI\Generator\Node\NamespaceNode;
 
 interface ParserInterface
 {

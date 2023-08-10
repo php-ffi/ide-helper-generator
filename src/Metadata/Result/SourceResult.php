@@ -13,7 +13,8 @@ final class SourceResult extends Result
     public function __construct(
         protected readonly \SplFileInfo $file,
         protected readonly bool $disposable = false,
-    ) {}
+    ) {
+    }
 
     public static function createFromFilename(string $filename, bool $disposable = false): self
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Metadata\Result;
+namespace FFI\Generator\Metadata\Result;
 
 interface ResultInterface extends \Stringable
 {

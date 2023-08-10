@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\PhpStormMetadataGenerator;
+namespace FFI\Generator\PhpStormMetadataGenerator;
 
-use FFI\AutocompleteGenerator\Generator\TypeInfo;
-use FFI\AutocompleteGenerator\Generator\TypeInfoGenerator;
-use FFI\AutocompleteGenerator\NamingStrategyInterface;
-use FFI\AutocompleteGenerator\Node\FunctionNode;
-use FFI\AutocompleteGenerator\Node\NamespaceNode;
-use FFI\AutocompleteGenerator\Node\Type\TypeDefinitionNode;
+use FFI\Generator\Generator\TypeInfo;
+use FFI\Generator\Generator\TypeInfoGenerator;
+use FFI\Generator\NamingStrategyInterface;
+use FFI\Generator\Node\FunctionNode;
+use FFI\Generator\Node\NamespaceNode;
+use FFI\Generator\Node\Type\TypeDefinitionNode;
 use PhpParser\Builder\Interface_;
 use PhpParser\Builder\Param;
 use PhpParser\Comment\Doc;

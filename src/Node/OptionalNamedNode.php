@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node;
+namespace FFI\Generator\Node;
 
 abstract class OptionalNamedNode extends Node implements OptionalNamedNodeInterface
 {
@@ -11,7 +11,8 @@ abstract class OptionalNamedNode extends Node implements OptionalNamedNodeInterf
      */
     public function __construct(
         public readonly ?string $name = null,
-    ) {}
+    ) {
+    }
 
     public function getName(): ?string
     {

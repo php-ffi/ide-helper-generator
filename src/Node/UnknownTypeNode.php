@@ -10,5 +10,6 @@ final class UnknownTypeNode extends Node implements TypeInterface
 {
     public function __construct(
         public readonly string $typeName,
-    ) {}
+    ) {
+    }
 }

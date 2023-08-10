@@ -24,7 +24,7 @@ final class NikicPrinterResult implements ResultInterface
         private readonly NamingStrategyInterface $naming,
         private readonly array $statements,
     ) {
-        $this->printer = new class(['shortArraySyntax' => true]) extends Standard {
+        $this->printer = new class (['shortArraySyntax' => true]) extends Standard {
             protected function preprocessNodes(array $nodes): void
             {
                 $this->canUseSemicolonNamespaces = false;

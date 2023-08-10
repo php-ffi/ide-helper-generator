@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Node\Type;
+namespace FFI\Generator\Node\Type;
 
-use FFI\AutocompleteGenerator\Node\FunctionArgumentNode;
-use FFI\AutocompleteGenerator\Node\Node;
-use FFI\AutocompleteGenerator\Node\Visitable;
+use FFI\Generator\Node\FunctionArgumentNode;
+use FFI\Generator\Node\Node;
+use FFI\Generator\Node\Visitable;
 
 /**
  * @template TReturns of TypeInterface

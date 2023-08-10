@@ -2,26 +2,27 @@
 
 declare(strict_types=1);
 
-namespace FFI\AutocompleteGenerator\Generator;
+namespace FFI\Generator\Generator;
 
-use FFI\AutocompleteGenerator\NamingStrategyInterface;
-use FFI\AutocompleteGenerator\Node\GenericTypeInterface;
-use FFI\AutocompleteGenerator\Node\NamespaceNode;
-use FFI\AutocompleteGenerator\Node\Type\ArrayTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\ConstTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\EnumTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\FunctionTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\FundamentalTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\PointerTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\RecordTypeNode;
-use FFI\AutocompleteGenerator\Node\Type\TypeDefinitionNode;
-use FFI\AutocompleteGenerator\Node\Type\TypeInterface;
+use FFI\Generator\NamingStrategyInterface;
+use FFI\Generator\Node\GenericTypeInterface;
+use FFI\Generator\Node\NamespaceNode;
+use FFI\Generator\Node\Type\ArrayTypeNode;
+use FFI\Generator\Node\Type\ConstTypeNode;
+use FFI\Generator\Node\Type\EnumTypeNode;
+use FFI\Generator\Node\Type\FunctionTypeNode;
+use FFI\Generator\Node\Type\FundamentalTypeNode;
+use FFI\Generator\Node\Type\PointerTypeNode;
+use FFI\Generator\Node\Type\RecordTypeNode;
+use FFI\Generator\Node\Type\TypeDefinitionNode;
+use FFI\Generator\Node\Type\TypeInterface;
 
 final class TypeInfoGenerator
 {
     public function __construct(
         private readonly NamingStrategyInterface $naming,
-    ) {}
+    ) {
+    }
 
     public function get(NamespaceNode $ctx, TypeInterface $type): TypeInfo
     {
