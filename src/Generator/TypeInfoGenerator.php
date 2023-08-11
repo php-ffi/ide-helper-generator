@@ -19,9 +19,92 @@ use FFI\Generator\Node\Type\TypeInterface;
 
 final class TypeInfoGenerator
 {
+    /**
+     * List of builtin types and its core type alias.
+     *
+     * @var list<non-empty-string, non-empty-string>
+     */
+    private const BUILTIN_TYPES = [
+        'void*' => 'void*',
+        'bool' => 'bool',
+        'float' => 'float',
+        'double' => 'double',
+        'long double' => 'double',
+        'char' => 'char',
+        'signed char' => 'int8_t',
+        'unsigned char' => 'uint8_t',
+
+        'short' => 'int16_t',
+        'short int' => 'int16_t',
+        'signed short' => 'int16_t',
+        'short signed' => 'int16_t',
+        'signed short int' => 'int16_t',
+        'short signed int' => 'int16_t',
+        'unsigned short' => 'uint16_t',
+        'short unsigned' => 'uint16_t',
+        'short unsigned int' => 'uint16_t',
+
+        'int' => 'int32_t',
+        'signed int' => 'int32_t',
+        'unsigned int' => 'uint32_t',
+
+        'long' => 'int32_t',
+        'long int' => 'int32_t',
+        'signed long' => 'int32_t',
+        'long signed' => 'int32_t',
+        'signed long int' => 'int32_t',
+        'long signed int' => 'int32_t',
+        'unsigned long' => 'uint32_t',
+        'long unsigned' => 'uint32_t',
+        'unsigned long int' => 'uint32_t',
+        'long unsigned int' => 'uint32_t',
+
+        'long long' => 'int64_t',
+        'long long int' => 'int64_t',
+        'signed long long' => 'int64_t',
+        'long long signed' => 'int64_t',
+        'signed long long int' => 'int64_t',
+        'long long signed int' => 'int64_t',
+        'unsigned long long' => 'uint64_t',
+        'long long unsigned' => 'uint64_t',
+        'unsigned long long int' => 'uint64_t',
+        'long long unsigned int' => 'uint64_t',
+
+        'intptr_t' => 'int64_t',
+        'uintptr_t' => 'uint64_t',
+        'size_t' => 'uint64_t',
+        'ssize_t' => 'int64_t',
+        'ptrdiff_t' => 'int64_t',
+        'off_t' => 'int32_t',
+        'va_list' => 'void*',
+        '__builtin_va_list' => 'void*',
+        '__gnuc_va_list' => 'void*',
+        'int8_t' => 'int8_t',
+        'uint8_t' => 'uint8_t',
+        'int16_t' => 'int16_t',
+        'uint16_t' => 'uint16_t',
+        'int32_t' => 'int32_t',
+        'uint32_t' => 'uint32_t',
+        'int64_t' => 'int64_t',
+        'uint64_t' => 'uint64_t',
+    ];
+
+    /**
+     * @var array<non-empty-string, TypeInfo>
+     */
+    private array $builtin = [];
+
     public function __construct(
         private readonly NamingStrategyInterface $naming,
     ) {
+    }
+
+    /**
+     * @return iterable<non-empty-string, non-empty-string>
+     */
+    public static function getBuiltinTypeNames(): iterable
+    {
+        return self::BUILTIN_TYPES;
     }
 
     public function get(NamespaceNode $ctx, TypeInterface $type): TypeInfo
@@ -39,15 +122,22 @@ final class TypeInfoGenerator
         // In case of type is a pointer
         //
         if ($type instanceof PointerTypeNode) {
-            $terminal = $this->getTerminalType($type->getOfType());
+            $terminal = $this->getTerminalType($type->type);
 
             $info->phpTypes = ['null', '\FFI\CData'];
             $info->docTypes = ['null'];
 
-            $child = $this->get($ctx, $type->getOfType());
+            $child = $this->get($ctx, $type->type);
 
             if (($childDocType = $child->getDocTypeAsString()) && $childDocType !== 'mixed') {
-                $info->addDocType('\FFI\CData<' . $childDocType . '>');
+                switch (true) {
+                    case $terminal instanceof FundamentalTypeNode:
+                        $info->addDocType('\FFI\CData', 'object{cdata:' . $childDocType . '}');
+                        break;
+                    default:
+                        $info->addDocType('\FFI\CData', 'array{' . $childDocType . '}');
+                        break;
+                }
             } else {
                 $info->addDocType('\FFI\CData');
             }
@@ -57,6 +147,9 @@ final class TypeInfoGenerator
             //
             if ($terminal instanceof FundamentalTypeNode && $terminal->name === 'char') {
                 $info->phpTypes = $info->docTypes = ['string', '\FFI\CData'];
+            } elseif ($terminal instanceof FunctionTypeNode) {
+                $info->phpTypes = ['\Closure', 'null'];
+                $info->docTypes = ['FFI\CData', 'null', $childDocType];
             }
 
             if (!$type->type instanceof RecordTypeNode) {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FFI\Generator\PhpStormMetadataGenerator;
 
+use FFI\Generator\Generator\TypeInfoGenerator;
 use FFI\Generator\NamingStrategyInterface;
 use FFI\Generator\Node\NamespaceNode;
 use FFI\Generator\Node\Type\RecordTypeNode;
@@ -17,13 +18,15 @@ use PhpParser\Node\Stmt\Expression;
 /**
  * Generates:
  *  - registerArgumentsSet('<FFI_GLOBAL_TYPE_NAMES>', ...);
- *  - expectedArguments(\FFI::new(), 0, argumentsSet('<FFI_GLOBAL_TYPE_NAMES'));
- *  - expectedArguments(\FFI::cast(), 0, argumentsSet('<FFI_GLOBAL_TYPE_NAMES'));
- *  - expectedArguments(\FFI::type(), 0, argumentsSet('<FFI_GLOBAL_TYPE_NAMES'));
+ *  - expectedArguments(\FFI::new(), 0, argumentsSet('<FFI_GLOBAL_TYPE_NAMES>'));
+ *  - expectedArguments(\FFI::cast(), 0, argumentsSet('<FFI_GLOBAL_TYPE_NAMES>'));
+ *  - expectedArguments(\FFI::type(), 0, argumentsSet('<FFI_GLOBAL_TYPE_NAMES>'));
  */
 final class GenerateTypesInstantiation extends Visitor
 {
     private const COMMENT = 'List of available FFI type names';
+
+    private readonly TypeInfoGenerator $info;
 
     /**
      * @param list<non-empty-string> $excludes
@@ -36,6 +39,7 @@ final class GenerateTypesInstantiation extends Visitor
         private readonly array $excludes = [],
         private readonly int $pointersInheritance = 2,
     ) {
+        $this->info = new TypeInfoGenerator($this->naming);
     }
 
     public function after(NamespaceNode $ctx, iterable $nodes): iterable
@@ -45,7 +49,7 @@ final class GenerateTypesInstantiation extends Visitor
             args: [$this->argNode($this->getArgumentsSetName(), self::COMMENT)]
         );
 
-        foreach (self::BUILTIN_TYPES as $name => $size) {
+        foreach (TypeInfoGenerator::getBuiltinTypeNames() as $name) {
             $registerArgumentsSet->args[$name] = $this->argNode($name);
         }
 

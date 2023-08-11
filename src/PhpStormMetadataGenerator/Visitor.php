@@ -26,60 +26,6 @@ use PhpParser\Node\Stmt;
 abstract class Visitor
 {
     /**
-     * List of builtin types and its sizes.
-     *
-     * @var array<non-empty-string, int<1, max>>
-     */
-    public const BUILTIN_TYPES = [
-        'void *' => 8,
-        'bool' => 1,
-        'float' => 4,
-        'double' => 8,
-        'long double' => 8,
-        'char' => 1,
-        'signed char' => 1,
-        'unsigned char' => 1,
-        'short' => 2,
-        'short int' => 2,
-        'signed short' => 2,
-        'signed short int' => 2,
-        'unsigned short' => 2,
-        'unsigned short int' => 2,
-        'int' => 4,
-        'signed int' => 4,
-        'unsigned int' => 4,
-        'long' => 4,
-        'long int' => 4,
-        'signed long' => 4,
-        'signed long int' => 4,
-        'unsigned long' => 4,
-        'unsigned long int' => 4,
-        'long long' => 8,
-        'long long int' => 8,
-        'signed long long' => 8,
-        'signed long long int' => 8,
-        'unsigned long long' => 8,
-        'unsigned long long int' => 8,
-        'intptr_t' => 8,
-        'uintptr_t' => 8,
-        'size_t' => 8,
-        'ssize_t' => 8,
-        'ptrdiff_t' => 8,
-        'off_t' => 4,
-        'va_list' => 8,
-        '__builtin_va_list' => 8,
-        '__gnuc_va_list' => 8,
-        'int8_t' => 1,
-        'uint8_t' => 1,
-        'int16_t' => 2,
-        'uint16_t' => 2,
-        'int32_t' => 4,
-        'uint32_t' => 4,
-        'int64_t' => 8,
-        'uint64_t' => 8,
-    ];
-
-    /**
      * @param iterable<TypeDefinitionNode|FunctionNode> $nodes
      * @return iterable<Stmt>
      */

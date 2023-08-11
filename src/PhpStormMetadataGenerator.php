@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FFI\Generator;
 
 use FFI\Generator\PhpStormMetadataGenerator\GenerateExportFunctions;
-use FFI\Generator\PhpStormMetadataGenerator\GenerateStructOverrides;
+use FFI\Generator\PhpStormMetadataGenerator\GenerateOverrides;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateStructures;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateTypesInstantiation;
 use FFI\Generator\PhpStormMetadataGenerator\Visitor;
@@ -48,6 +48,21 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
             excludes: $ignoreDirectories,
             pointersInheritance: $pointersInheritance
         );
+        $this->phpstormMetadataVisitors[] = new GenerateOverrides(
+            naming: $this->naming,
+            excludes: $ignoreDirectories,
+            pointersInheritance: $pointersInheritance,
+            allowScalarOverrides: $allowScalarOverrides,
+        );
+        $this->phpstormMetadataVisitors[] = new GenerateStructures(
+            naming: $this->naming,
+            excludes: $ignoreDirectories,
+        );
+
+        //
+        // Enum autocomplete
+        //
+
         $this->phpstormMetadataVisitors[] = new GenerateEnumArgumentsSet(
             naming: $this->naming,
             argumentSetPrefix: $argumentSetPrefix,
@@ -63,16 +78,11 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
             argumentSetPrefix: $argumentSetPrefix,
             excludes: $ignoreDirectories,
         );
-        $this->phpstormMetadataVisitors[] = new GenerateStructOverrides(
-            naming: $this->naming,
-            excludes: $ignoreDirectories,
-            pointersInheritance: $pointersInheritance,
-            allowScalarOverrides: $allowScalarOverrides,
-        );
-        $this->phpstormMetadataVisitors[] = new GenerateStructures(
-            naming: $this->naming,
-            excludes: $ignoreDirectories,
-        );
+
+        //
+        // Library main API
+        //
+
         $this->entrypointMetadataVisitors[] = new GenerateExportFunctions(
             naming: $this->naming,
             excludes: $ignoreDirectories,

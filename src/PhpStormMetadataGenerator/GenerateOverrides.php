@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FFI\Generator\PhpStormMetadataGenerator;
 
-use FFI\Generator\Generator\TypeInfoGenerator;
 use FFI\Generator\NamingStrategyInterface;
 use FFI\Generator\Node\FunctionNode;
 use FFI\Generator\Node\NamespaceNode;
@@ -20,14 +19,12 @@ use PhpParser\Node\Stmt\Expression;
  * Generates:
  *  - override(\FFI::new(), map(['' => '\PHPSTORM_META\@', ...]));
  */
-final class GenerateStructOverrides extends Visitor
+final class GenerateOverrides extends Visitor
 {
     /**
      * @var non-empty-string
      */
     private const COMMENT = 'List of return type coercions';
-
-    private readonly TypeInfoGenerator $info;
 
     /**
      * @param list<non-empty-string> $excludes
@@ -38,7 +35,6 @@ final class GenerateStructOverrides extends Visitor
         private readonly int $pointersInheritance = 2,
         private readonly bool $allowScalarOverrides = true,
     ) {
-        $this->info = new TypeInfoGenerator($this->naming);
     }
 
     /**
