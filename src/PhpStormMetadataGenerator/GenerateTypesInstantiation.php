@@ -32,7 +32,7 @@ final class GenerateTypesInstantiation extends Visitor
     public function __construct(
         private readonly NamingStrategyInterface $naming,
         private readonly string $argumentSetPrefix,
-        private readonly string $globalArgumentSetSuffix = 'types_list',
+        private readonly string $globalArgumentSetSuffix,
         private readonly array $excludes = [],
         private readonly int $pointersInheritance = 2,
     ) {

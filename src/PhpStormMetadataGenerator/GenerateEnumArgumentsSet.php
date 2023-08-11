@@ -9,12 +9,10 @@ use FFI\Generator\Node\Type\EnumTypeNode;
 use FFI\Generator\Node\FunctionNode;
 use FFI\Generator\Node\NamespaceNode;
 use FFI\Generator\Node\Type\TypeDefinitionNode;
-use PhpParser\Comment;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 
 /**
@@ -42,16 +40,10 @@ final class GenerateEnumArgumentsSet extends Visitor
 
         $registerArgumentsSet = new FuncCall(
             name: new Name('registerArgumentsSet'),
-            args: [new Arg(
-                value: new String_(
-                    value: $this->argumentSetPrefix . \strtolower($node->name)
-                ),
-                attributes: [
-                    'comments' => [
-                        new Comment('// List of "' . $node->name . '" enum cases')
-                    ]
-                ]
-            )]
+            args: [$this->argNode(
+                name: $this->argumentSetPrefix . \strtolower($node->name),
+                comment: 'List of "' . $node->name . '" enum cases',
+            )],
         );
 
         $phpEnumName = $this->naming->getName($node->getName(), $node->type);
