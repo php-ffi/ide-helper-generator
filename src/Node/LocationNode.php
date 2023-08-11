@@ -34,10 +34,10 @@ final class LocationNode extends Node
 
         foreach ($excludes as $ignored) {
             if (\str_starts_with(\str_replace('\\', '/', $ignored), $pathname)) {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }
