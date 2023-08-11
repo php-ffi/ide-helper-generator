@@ -214,6 +214,10 @@ final class GenerateStructOverrides extends Visitor
 
         foreach ($nodes as $node) {
             if ($node instanceof TypeDefinitionNode && $node->type instanceof RecordTypeNode) {
+                if ($node->location->matches($this->excludes)) {
+                    continue;
+                }
+
                 $arrayItems[] = new ArrayItem(
                     value: new String_('\\' . $this->naming->getName(
                         name: $node->name,
