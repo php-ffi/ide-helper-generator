@@ -183,7 +183,7 @@ final class TypeInfoGenerator
      * @param int<0, max> $size
      * @return non-empty-string
      */
-    private function getIntDocBlock(int $size, bool $unsigned): string
+    public function getIntDocBlock(int $size, bool $unsigned): string
     {
         $bounds = $this->getIntBounds($size, $unsigned);
 

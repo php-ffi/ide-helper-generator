@@ -22,4 +22,12 @@ abstract class RecordTypeNode extends OptionalNamedNode implements OptionalNamed
      */
     #[Visitable]
     public array $fields = [];
+
+    /**
+     * An incomplete type is a type that describes an identifier but lacks
+     * information needed to determine the size of the identifier. An incomplete
+     * type can be a record (struct/union) type whose members you have not yet
+     * specified.
+     */
+    public bool $incomplete = false;
 }

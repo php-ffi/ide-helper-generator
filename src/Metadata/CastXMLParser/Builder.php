@@ -228,6 +228,8 @@ final class Builder implements \IteratorAggregate
             id: $el->getAttribute('location'),
         );
 
+        $record->incomplete = $el->getAttribute('incomplete') === '1';
+
         if ($members = $el->getAttribute('members')) {
             foreach ($this->getElementsByMemberIds($members) as $member) {
                 if ($member->nodeName !== 'Field') {

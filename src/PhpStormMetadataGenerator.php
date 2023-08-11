@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace FFI\Generator;
 
-use FFI\Generator\Node\NamespaceNode;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateExportFunctions;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateStructOverrides;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateStructures;
+use FFI\Generator\PhpStormMetadataGenerator\GenerateTypesInstantiation;
 use FFI\Generator\PhpStormMetadataGenerator\Visitor;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateEnumArgumentsSet;
 use FFI\Generator\PhpStormMetadataGenerator\GenerateEnumExpectedArguments;
@@ -37,6 +37,11 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
         array $ignoreDirectories = [ '/usr' ],
         private readonly NamingStrategyInterface $naming = new SimpleNamingStrategy(),
     ) {
+        $this->phpstormMetadataVisitors[] = new GenerateTypesInstantiation(
+            naming: $this->naming,
+            argumentSetPrefix: $argumentSetPrefix,
+            excludes: $ignoreDirectories,
+        );
         $this->phpstormMetadataVisitors[] = new GenerateEnumArgumentsSet(
             naming: $this->naming,
             argumentSetPrefix: $argumentSetPrefix,
@@ -54,12 +59,16 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
         );
         $this->phpstormMetadataVisitors[] = new GenerateStructOverrides(
             naming: $this->naming,
-            argumentSetPrefix: $argumentSetPrefix,
             excludes: $ignoreDirectories,
         );
-
-        $this->phpstormMetadataVisitors[] = new GenerateStructures($this->naming, $ignoreDirectories);
-        $this->entrypointMetadataVisitors[] = new GenerateExportFunctions($this->naming, $ignoreDirectories);
+        $this->phpstormMetadataVisitors[] = new GenerateStructures(
+            naming: $this->naming,
+            excludes: $ignoreDirectories,
+        );
+        $this->entrypointMetadataVisitors[] = new GenerateExportFunctions(
+            naming: $this->naming,
+            excludes: $ignoreDirectories,
+        );
     }
 
     public function generate(iterable $namespaces): ResultInterface

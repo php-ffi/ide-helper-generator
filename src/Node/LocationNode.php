@@ -27,7 +27,7 @@ final class LocationNode extends Node
 
         // Ignore builtin files
         if ($this->file->name === null) {
-            return false;
+            return true;
         }
 
         $pathname = \str_replace('\\', '/', $this->file->name);
