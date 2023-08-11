@@ -138,6 +138,29 @@ final class GenerateStructOverrides extends Visitor
         return [];
     }
 
+    /**
+     * Additionally, an autocomplete with a pointer will be generated if the
+     * specified type is a structure-like or a typedef for a structure-like.
+     *
+     * @param non-empty-string $name
+     *
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     */
+    private function isStructureLike(NamespaceNode $ctx, string $name): bool
+    {
+        if (!isset($ctx->types[$name])) {
+            return false;
+        }
+
+        $type = $ctx->types[$name];
+
+        if ($type instanceof RecordTypeNode) {
+            return true;
+        }
+
+        return $type instanceof TypeDefinitionNode && $type->type instanceof RecordTypeNode;
+    }
+
     public function after(NamespaceNode $ctx, iterable $nodes): iterable
     {
         //
@@ -155,9 +178,12 @@ final class GenerateStructOverrides extends Visitor
         );
 
         foreach ($this->names as $name) {
-            $registerArgumentsSet->args[] = new Arg(new String_(
-                value: $name,
-            ));
+            $registerArgumentsSet->args[] = new Arg(new String_($name));
+
+            if ($this->isStructureLike($ctx, $name)) {
+                $registerArgumentsSet->args[] = new Arg(new String_($name . '*'));
+                $registerArgumentsSet->args[] = new Arg(new String_($name . '**'));
+            }
         }
 
         yield new Expression($registerArgumentsSet);
@@ -172,6 +198,23 @@ final class GenerateStructOverrides extends Visitor
                 new Arg(new StaticCall(
                     class: new Name\FullyQualified($this->naming->getEntrypoint()),
                     name: 'new',
+                )),
+                new Arg(new LNumber(0)),
+                new Arg(new FuncCall(
+                    name: new Name('argumentsSet'),
+                    args: [new Arg(new String_(
+                        value: $this->argumentSetPrefix . $this->globalArgumentSetSuffix
+                    ))]
+                ))
+            ]
+        ));
+
+        yield new Expression(new FuncCall(
+            name: new Name('expectedArguments'),
+            args: [
+                new Arg(new StaticCall(
+                    class: new Name\FullyQualified($this->naming->getEntrypoint()),
+                    name: 'cast',
                 )),
                 new Arg(new LNumber(0)),
                 new Arg(new FuncCall(
@@ -206,7 +249,7 @@ final class GenerateStructOverrides extends Visitor
 
         $internalName = \rtrim($this->naming->getName('@', new StructTypeNode('@')), '@') . '@';
 
-        $arrayItems = [new ArrayItem(
+        $map = [new ArrayItem(
             value: new String_('\\' . $internalName),
             key: new String_(''),
             attributes: ['comments' => [new Comment('// structures autocompletion')]]
@@ -218,13 +261,38 @@ final class GenerateStructOverrides extends Visitor
                     continue;
                 }
 
-                $arrayItems[] = new ArrayItem(
-                    value: new String_('\\' . $this->naming->getName(
-                        name: $node->name,
-                        type: $node->type,
-                    )),
+                $mappedType = $this->naming->getName(
+                    name: $node->name,
+                    type: $node->type,
+                );
+
+                $map[] = new ArrayItem(
+                    value: new String_("\\$mappedType"),
                     key: new String_($node->name),
                 );
+
+                if ($this->isStructureLike($ctx, $node->name)) {
+                    $map[] = new ArrayItem(
+                        value: new String_("\\{$mappedType}[]"),
+                        key: new String_( $node->name . '*'),
+                    );
+                    $map[] = new ArrayItem(
+                        value: new String_("\\{$mappedType}"),
+                        key: new String_( $node->name . '*'),
+                    );
+                    $map[] = new ArrayItem(
+                        value: new String_("\\{$mappedType}[][]"),
+                        key: new String_( $node->name . '**'),
+                    );
+                    $map[] = new ArrayItem(
+                        value: new String_("\\{$mappedType}[]"),
+                        key: new String_( $node->name . '**'),
+                    );
+                    $map[] = new ArrayItem(
+                        value: new String_("\\{$mappedType}"),
+                        key: new String_( $node->name . '**'),
+                    );
+                }
             }
         }
 
@@ -237,9 +305,10 @@ final class GenerateStructOverrides extends Visitor
                 )),
                 new Arg(new FuncCall(
                     name: new Name('map'),
-                    args: [
-                        new Arg(new Array_($arrayItems, ['kind' => Array_::KIND_SHORT]))
-                    ]
+                    args: [new Arg(new Array_(
+                        items: $map,
+                        attributes: ['kind' => Array_::KIND_SHORT],
+                    ))]
                 ))
             ]
         ));
