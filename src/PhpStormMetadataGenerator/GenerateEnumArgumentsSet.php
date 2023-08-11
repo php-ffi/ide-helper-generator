@@ -22,15 +22,21 @@ use PhpParser\Node\Stmt\Expression;
  */
 final class GenerateEnumArgumentsSet extends Visitor
 {
+    /**
+     * @param list<non-empty-string> $excludes
+     */
     public function __construct(
         private readonly NamingStrategyInterface $naming,
         private readonly string $argumentSetPrefix,
+        private readonly array $excludes = [],
     ) {
     }
 
     public function enter(NamespaceNode $ctx, TypeDefinitionNode|FunctionNode $node): iterable
     {
-        if (!$node instanceof TypeDefinitionNode || !$node->type instanceof EnumTypeNode) {
+        if (!$node instanceof TypeDefinitionNode
+            || !$node->type instanceof EnumTypeNode
+            || $node->location->matches($this->excludes)) {
             return;
         }
 

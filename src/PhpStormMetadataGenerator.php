@@ -37,7 +37,11 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
         array $ignoreDirectories = [ '/usr' ],
         private readonly NamingStrategyInterface $naming = new SimpleNamingStrategy(),
     ) {
-        $this->phpstormMetadataVisitors[] = new GenerateEnumArgumentsSet($this->naming, $argumentSetPrefix);
+        $this->phpstormMetadataVisitors[] = new GenerateEnumArgumentsSet(
+            $this->naming,
+            $argumentSetPrefix,
+            $ignoreDirectories,
+        );
         $this->phpstormMetadataVisitors[] = new GenerateEnumExpectedArguments($this->naming, $argumentSetPrefix);
         $this->phpstormMetadataVisitors[] = new GenerateEnumExpectedReturnValues($this->naming, $argumentSetPrefix);
         $this->phpstormMetadataVisitors[] = new GenerateStructOverrides(

@@ -21,6 +21,10 @@ final class LocationNode extends Node
      */
     public function matches(array $excludes): bool
     {
+        if ($excludes === []) {
+            return true;
+        }
+
         // Ignore builtin files
         if ($this->file->name === null) {
             return false;
