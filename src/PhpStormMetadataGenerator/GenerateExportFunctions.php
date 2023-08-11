@@ -48,7 +48,10 @@ final class GenerateExportFunctions extends Visitor
 
     public function enter(NamespaceNode $ctx, FunctionNode|TypeDefinitionNode $node): iterable
     {
-        if (!$node instanceof FunctionNode || $node->name === null || !$node->location->matches($this->excludes)) {
+        if (!$node instanceof FunctionNode
+            || $node->name === null
+            || $node->location->matches($this->excludes)
+        ) {
             return [];
         }
 

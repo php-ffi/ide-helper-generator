@@ -101,10 +101,10 @@ final class GenerateStructOverrides extends Visitor
     {
         if ($type instanceof RecordTypeNode && $type->name !== null) {
             if ($type->location->matches($this->ignoreDirectories)) {
-                return [$type->name];
+                return null;
             }
 
-            return null;
+            return [$type->name];
         }
 
         if ($type instanceof TypeDefinitionNode) {

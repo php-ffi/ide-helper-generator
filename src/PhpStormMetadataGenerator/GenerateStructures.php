@@ -42,7 +42,7 @@ final class GenerateStructures extends Visitor
     {
         if (!$node instanceof TypeDefinitionNode
             || !$node->type instanceof RecordTypeNode
-            || !$node->location->matches($this->excludes)) {
+            || $node->location->matches($this->excludes)) {
             return;
         }
 
