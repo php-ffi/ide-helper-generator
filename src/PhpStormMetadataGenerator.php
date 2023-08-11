@@ -29,18 +29,24 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
 
     /**
      * @param non-empty-string $argumentSetPrefix
+     * @param non-empty-string $globalTypesArgumentSetSuffix
+     * @param int<0, max> $pointersInheritance
      * @param list<non-empty-string> $ignoreDirectories
-     * @param NamingStrategyInterface $naming
      */
     public function __construct(
         string $argumentSetPrefix = 'ffi_',
+        string $globalTypesArgumentSetSuffix = 'types_list',
+        int $pointersInheritance = 2,
+        bool $allowScalarOverrides = true,
         array $ignoreDirectories = [ '/usr' ],
         private readonly NamingStrategyInterface $naming = new SimpleNamingStrategy(),
     ) {
         $this->phpstormMetadataVisitors[] = new GenerateTypesInstantiation(
             naming: $this->naming,
             argumentSetPrefix: $argumentSetPrefix,
+            globalArgumentSetSuffix: $globalTypesArgumentSetSuffix,
             excludes: $ignoreDirectories,
+            pointersInheritance: $pointersInheritance
         );
         $this->phpstormMetadataVisitors[] = new GenerateEnumArgumentsSet(
             naming: $this->naming,
@@ -60,6 +66,8 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
         $this->phpstormMetadataVisitors[] = new GenerateStructOverrides(
             naming: $this->naming,
             excludes: $ignoreDirectories,
+            pointersInheritance: $pointersInheritance,
+            allowScalarOverrides: $allowScalarOverrides,
         );
         $this->phpstormMetadataVisitors[] = new GenerateStructures(
             naming: $this->naming,
