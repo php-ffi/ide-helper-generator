@@ -270,11 +270,9 @@ final class Builder implements \IteratorAggregate
         );
     }
 
-    private function getCvQualifiedType(\DOMElement $el): GenericType
+    private function getCvQualifiedType(\DOMElement $el): TypeInterface
     {
         $type = $this->getTypeById($el->getAttribute('type'));
-
-        assert($type instanceof GenericType);
 
         if ($el->getAttribute('restrict') === '1') {
             $type = new RestrictType($type);
