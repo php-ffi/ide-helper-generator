@@ -24,9 +24,13 @@ use PhpParser\Node\Stmt\Namespace_;
  */
 final class GenerateEnumExpectedReturnValues extends Visitor
 {
+    /**
+     * @param list<non-empty-string> $excludes
+     */
     public function __construct(
         private readonly NamingStrategyInterface $naming,
         private readonly string $argumentSetPrefix,
+        private readonly array $excludes = [],
     ) {
     }
 
@@ -36,7 +40,7 @@ final class GenerateEnumExpectedReturnValues extends Visitor
             || $node->name === null
             || !$node->returns instanceof TypeDefinitionNode
             || !$node->returns->type instanceof EnumTypeNode
-        ) {
+            || $node->location->matches($this->excludes)) {
             return;
         }
 

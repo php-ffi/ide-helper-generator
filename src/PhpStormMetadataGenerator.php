@@ -38,19 +38,27 @@ final class PhpStormMetadataGenerator implements GeneratorInterface
         private readonly NamingStrategyInterface $naming = new SimpleNamingStrategy(),
     ) {
         $this->phpstormMetadataVisitors[] = new GenerateEnumArgumentsSet(
-            $this->naming,
-            $argumentSetPrefix,
-            $ignoreDirectories,
+            naming: $this->naming,
+            argumentSetPrefix: $argumentSetPrefix,
+            excludes: $ignoreDirectories,
         );
-        $this->phpstormMetadataVisitors[] = new GenerateEnumExpectedArguments($this->naming, $argumentSetPrefix);
-        $this->phpstormMetadataVisitors[] = new GenerateEnumExpectedReturnValues($this->naming, $argumentSetPrefix);
+        $this->phpstormMetadataVisitors[] = new GenerateEnumExpectedArguments(
+            naming: $this->naming,
+            argumentSetPrefix: $argumentSetPrefix,
+            excludes: $ignoreDirectories,
+        );
+        $this->phpstormMetadataVisitors[] = new GenerateEnumExpectedReturnValues(
+            naming: $this->naming,
+            argumentSetPrefix: $argumentSetPrefix,
+            excludes: $ignoreDirectories,
+        );
         $this->phpstormMetadataVisitors[] = new GenerateStructOverrides(
             naming: $this->naming,
             argumentSetPrefix: $argumentSetPrefix,
-            ignoreDirectories: $ignoreDirectories,
+            excludes: $ignoreDirectories,
         );
-        $this->phpstormMetadataVisitors[] = new GenerateStructures($this->naming, $ignoreDirectories);
 
+        $this->phpstormMetadataVisitors[] = new GenerateStructures($this->naming, $ignoreDirectories);
         $this->entrypointMetadataVisitors[] = new GenerateExportFunctions($this->naming, $ignoreDirectories);
     }
 

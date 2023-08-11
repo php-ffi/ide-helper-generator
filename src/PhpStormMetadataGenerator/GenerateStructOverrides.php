@@ -84,13 +84,13 @@ final class GenerateStructOverrides extends Visitor
     private array $names = self::BUILTIN_TYPES;
 
     /**
-     * @param list<non-empty-string> $ignoreDirectories
+     * @param list<non-empty-string> $excludes
      */
     public function __construct(
         private readonly NamingStrategyInterface $naming,
         private readonly string $argumentSetPrefix,
         private readonly string $globalArgumentSetSuffix = 'types_list',
-        private readonly array $ignoreDirectories = [],
+        private readonly array $excludes = [],
     ) {
     }
 
@@ -100,7 +100,7 @@ final class GenerateStructOverrides extends Visitor
     private function getTypeAliases(TypeInterface $type): ?array
     {
         if ($type instanceof RecordTypeNode && $type->name !== null) {
-            if ($type->location->matches($this->ignoreDirectories)) {
+            if ($type->location->matches($this->excludes)) {
                 return null;
             }
 
