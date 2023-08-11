@@ -32,8 +32,8 @@ final class LocationNode extends Node
 
         $pathname = \str_replace('\\', '/', $this->file->name);
 
-        foreach ($excludes as $ignored) {
-            if (\str_starts_with(\str_replace('\\', '/', $ignored), $pathname)) {
+        foreach ($excludes as $directory) {
+            if (\str_starts_with($pathname, \str_replace('\\', '/', $directory))) {
                 return true;
             }
         }
