@@ -36,7 +36,7 @@ final class TypeInfo
                 continue;
             }
 
-            $this->phpTypes[] = $value;
+            $this->expectedValues[] = $value;
         }
     }
 
