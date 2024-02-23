@@ -22,8 +22,8 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
-        "nikic/php-parser": "^4.16",
-        "symfony/process": "^5.4|^6.0"
+        "nikic/php-parser": "^4.16|^5.0",
+        "symfony/process": "^5.4|^6.0|^7.0"
     },
     "autoload": {
         "psr-4": {
