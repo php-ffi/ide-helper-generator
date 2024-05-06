@@ -146,7 +146,7 @@ final class TypeInfoGenerator
             // The "char*" is looks like a string
             //
             if ($terminal instanceof FundamentalTypeNode && $terminal->name === 'char') {
-                $info->phpTypes = $info->docTypes = ['string', '\FFI\CData'];
+                $info->phpTypes = $info->docTypes = ['string', '\FFI\CData', 'null'];
             } elseif ($terminal instanceof FunctionTypeNode) {
                 $info->phpTypes = ['\Closure', 'null'];
                 $info->docTypes = ['FFI\CData', 'null', $childDocType];
