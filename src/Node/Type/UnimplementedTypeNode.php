@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node\Type;
 
-use FFI\Generator\Node\NamedNode;
-
-class UnimplementedTypeNode extends NamedNode implements TypeInterface
+final readonly class UnimplementedTypeNode implements NamedTypeInterface
 {
+    public function __construct(
+        /**
+         * @var non-empty-string
+         */
+        public string $name,
+    ) {}
 }

@@ -7,12 +7,15 @@ namespace FFI\Generator\Node;
 use FFI\Generator\Node\Type\TypeInterface;
 
 /**
- * @psalm-suppress PropertyNotSetInConstructor
+ * @template T of TypeInterface
  */
-class FunctionTypeArgumentNode extends OptionalNamedNode
+class FunctionTypeArgumentNode extends Node
 {
-    public bool $variadic = false;
-
-    #[Visitable]
-    public TypeInterface $type;
+    public function __construct(
+        /**
+         * @var T
+         */
+        public readonly TypeInterface $type,
+        public bool $isVariadic = false,
+    ) {}
 }

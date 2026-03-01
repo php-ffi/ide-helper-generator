@@ -7,10 +7,18 @@ namespace FFI\Generator\Node;
 use FFI\Generator\Node\Type\TypeInterface;
 
 /**
- * @psalm-suppress PropertyNotSetInConstructor
+ * @template T of TypeInterface
  */
-final class RecordFieldNode extends OptionalNamedNode
+final class RecordFieldNode extends Node
 {
-    #[Visitable]
-    public TypeInterface $type;
+    public function __construct(
+        /**
+         * @var non-empty-string|null
+         */
+        public readonly ?string $name,
+        /**
+         * @var T
+         */
+        public TypeInterface $type,
+    ) {}
 }

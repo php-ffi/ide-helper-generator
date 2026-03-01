@@ -4,42 +4,61 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node;
 
-use FFI\Generator\Node\Type\TypeDefinitionNode;
+use FFI\Generator\Node\Type\StructTypeNode;
+use FFI\Generator\Node\Type\TypeDefinitionTypeNode;
+use FFI\Generator\Node\Type\TypeInterface;
 
-final class NamespaceNode extends OptionalNamedNode
+final class NamespaceNode extends Node
 {
-    public const DEFAULT_GLOBAL_NAMESPACE = '::';
-
     /**
-     * @var array<non-empty-string, TypeDefinitionNode>
+     * @var list<TypeInterface>
      */
-    #[Visitable]
     public array $types = [];
 
     /**
-     * @var array<non-empty-string, FunctionNode>
+     * @var list<FunctionNode>
      */
-    #[Visitable]
     public array $functions = [];
 
     /**
-     * @param non-empty-string $name
+     * @var list<VariableNode>
      */
-    public function __construct(string $name = self::DEFAULT_GLOBAL_NAMESPACE)
-    {
-        if ($name === self::DEFAULT_GLOBAL_NAMESPACE) {
-            $name = null;
-        }
+    public array $variables = [];
 
-        parent::__construct($name);
+    /**
+     * @var iterable<array-key, TypeDefinitionTypeNode<TypeInterface>>
+     */
+    public iterable $typedefs {
+        get {
+            foreach ($this->types as $typedef) {
+                if (!$typedef instanceof TypeDefinitionTypeNode) {
+                    continue;
+                }
+
+                yield $typedef;
+            }
+        }
     }
 
     /**
-     * @return \Iterator<array-key, TypeDefinitionNode|FunctionNode>
+     * @var iterable<array-key, TypeDefinitionTypeNode<StructTypeNode>>
      */
-    public function getMembers(): \Iterator
-    {
-        yield from $this->types;
-        yield from $this->functions;
+    public iterable $structures {
+        get {
+            foreach ($this->typedefs as $typedef) {
+                if (!$typedef->type instanceof StructTypeNode) {
+                    continue;
+                }
+
+                yield $typedef;
+            }
+        }
     }
+
+    public function __construct(
+        /**
+         * @var non-empty-string|null
+         */
+        public readonly ?string $name = null,
+    ) {}
 }

@@ -49,6 +49,17 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="elaboration-keyword">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="enum" />
+            <xs:enumeration value="union" />
+            <xs:enumeration value="class" />
+            <xs:enumeration value="struct" />
+            <xs:enumeration value="typename" />
+            <xs:enumeration value="__interface" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:attributeGroup name="abi">
         <xs:attribute name="size" type="xs:unsignedLong" />
         <xs:attribute name="align" type="xs:unsignedLong" />
@@ -277,6 +288,7 @@
                     <!-- Fields of anonymous record types might have an empty name.  -->
                     <xs:attribute name="name" type="nameOrEmpty" />
                     <xs:attribute name="type" type="xs:IDREF" />
+                    <xs:attribute name="init" type="expression" use="optional" />
                     <xs:attribute name="bits" type="xs:unsignedInt" use="optional" />
                     <xs:attribute name="context" type="xs:IDREF" />
                     <xs:attribute name="access" type="access" />
@@ -338,6 +350,20 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="AtomicType">
+                <xs:complexType>
+                    <xs:attribute name="id" type="xs:ID" />
+                    <xs:attribute name="type" type="xs:IDREF" />
+                    <xs:attributeGroup ref="abi" />
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="AutoType">
+                <xs:complexType>
+                    <xs:attribute name="id" type="xs:ID" />
+                </xs:complexType>
+            </xs:element>
+
             <xs:element name="PointerType">
                 <xs:complexType>
                     <xs:attribute name="id" type="xs:ID" />
@@ -356,6 +382,14 @@
             </xs:element>
 
             <xs:element name="ReferenceType">
+                <xs:complexType>
+                    <xs:attribute name="id" type="xs:ID" />
+                    <xs:attribute name="type" type="xs:IDREF" />
+                    <xs:attributeGroup ref="abi" />
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="RValueReferenceType">
                 <xs:complexType>
                     <xs:attribute name="id" type="xs:ID" />
                     <xs:attribute name="type" type="xs:IDREF" />
@@ -384,6 +418,8 @@
                 <xs:complexType>
                     <xs:attribute name="id" type="xs:ID" />
                     <xs:attribute name="type" type="xs:IDREF" />
+                    <xs:attribute name="keyword" type="elaboration-keyword" use="optional" />
+                    <xs:attribute name="qualifier" type="name" use="optional" />
                 </xs:complexType>
             </xs:element>
 

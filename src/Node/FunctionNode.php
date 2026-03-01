@@ -7,19 +7,25 @@ namespace FFI\Generator\Node;
 use FFI\Generator\Node\Type\TypeInterface;
 
 /**
- * @psalm-suppress PropertyNotSetInConstructor
+ * @template T of TypeInterface
  */
-final class FunctionNode extends OptionalNamedNode
+final class FunctionNode extends Node implements
+    DefinitionInterface
 {
-    #[Visitable]
-    public TypeInterface $returns;
-
-    #[Visitable]
-    public LocationNode $location;
-
     /**
      * @var list<FunctionArgumentNode>
      */
-    #[Visitable]
     public array $arguments = [];
+
+    public function __construct(
+        /**
+         * @var non-empty-string|null
+         */
+        public readonly ?string $name,
+        public readonly Location $location,
+        /**
+         * @var T
+         */
+        public readonly TypeInterface $type,
+    ) {}
 }

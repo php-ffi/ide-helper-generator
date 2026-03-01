@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node\Type;
 
-use FFI\Generator\Node\NamedNode;
-
-final class FundamentalTypeNode extends NamedNode implements NamedTypeInterface
+final class FundamentalTypeNode extends TypeNode implements
+    NamedTypeInterface
 {
-    /**
-     * @param non-empty-string $name
-     * @param int<1, max> $size
-     * @param int<1, max> $align
-     */
     public function __construct(
-        string $name,
+        /**
+         * @var non-empty-string
+         */
+        public readonly string $name,
+        /**
+         * @var int<0, max>
+         */
         public readonly int $size,
+        /**
+         * @var int<1, max>
+         */
         public readonly int $align,
-    ) {
-        parent::__construct($name);
-    }
+    ) {}
 }

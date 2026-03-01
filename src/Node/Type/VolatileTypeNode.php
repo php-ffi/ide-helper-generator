@@ -5,10 +5,16 @@ declare(strict_types=1);
 namespace FFI\Generator\Node\Type;
 
 /**
- * @template TType of TypeInterface
+ * @template T of TypeInterface
  *
- * @template-extends GenericType<TType>
+ * @template-implements TypeModifierInterface<T>
  */
-final class VolatileTypeNode extends GenericType
+final class VolatileTypeNode extends TypeNode implements TypeModifierInterface
 {
+    public function __construct(
+        /**
+         * @var T
+         */
+        public readonly TypeInterface $type,
+    ) {}
 }

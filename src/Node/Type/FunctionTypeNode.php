@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node\Type;
 
-use FFI\Generator\Node\FunctionArgumentNode;
+use FFI\Generator\Node\FunctionTypeArgumentNode;
 use FFI\Generator\Node\Node;
-use FFI\Generator\Node\Visitable;
 
 /**
- * @template TReturns of TypeInterface
- *
- * @psalm-suppress MissingConstructor
- * @psalm-suppress PropertyNotSetInConstructor
+ * @template T of TypeInterface
  */
 final class FunctionTypeNode extends Node implements TypeInterface
 {
     /**
-     * @var TReturns
+     * @var list<FunctionTypeArgumentNode>
      */
-    #[Visitable]
-    public TypeInterface $returns;
-
-    /**
-     * @var list<FunctionArgumentNode>
-     */
-    #[Visitable]
     public array $arguments = [];
+
+    public function __construct(
+        /**
+         * @var T
+         */
+        public readonly TypeInterface $type,
+    ) {}
 }

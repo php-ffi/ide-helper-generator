@@ -4,30 +4,25 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node\Type;
 
-use FFI\Generator\Node\LocationNode;
-use FFI\Generator\Node\OptionalNamedNode;
+use FFI\Generator\Node\DefinitionInterface;
+use FFI\Generator\Node\Location;
 use FFI\Generator\Node\RecordFieldNode;
-use FFI\Generator\Node\Visitable;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
-abstract class RecordTypeNode extends OptionalNamedNode implements OptionalNamedTypeInterface
+abstract class RecordTypeNode implements
+    OptionalNamedTypeInterface,
+    DefinitionInterface
 {
-    #[Visitable]
-    public LocationNode $location;
-
     /**
      * @var list<RecordFieldNode>
      */
-    #[Visitable]
     public array $fields = [];
 
-    /**
-     * An incomplete type is a type that describes an identifier but lacks
-     * information needed to determine the size of the identifier. An incomplete
-     * type can be a record (struct/union) type whose members you have not yet
-     * specified.
-     */
-    public bool $incomplete = false;
+    public function __construct(
+        /**
+         * @var non-empty-string|null
+         */
+        public readonly ?string $name,
+        public readonly Location $location,
+        public readonly bool $isIncomplete = false,
+    ) {}
 }

@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node\Type;
 
-use FFI\Generator\Node\NamedNodeInterface;
-
-interface NamedTypeInterface extends NamedNodeInterface, OptionalNamedTypeInterface
+interface NamedTypeInterface extends OptionalNamedTypeInterface
 {
+    /**
+     * Gets a type name
+     *
+     * @var non-empty-string
+     */
+    public string $name {
+        get;
+    }
 }
