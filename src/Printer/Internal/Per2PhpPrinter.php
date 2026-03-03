@@ -20,14 +20,33 @@ final class Per2PhpPrinter extends Standard
         parent::__construct($options);
     }
 
+    #[\Override]
     protected function preprocessNodes(array $nodes): void
     {
         $this->canUseSemicolonNamespaces = false;
     }
 
+    #[\Override]
     protected function pStmt_Declare(Declare_ $node): string
     {
-        return 'declare(' . $this->pCommaSeparated($node->declares) . ')'
-            . (null !== $node->stmts ? ' {' . $this->pStmts($node->stmts) . $this->nl . '}' : ';');
+        $definition = 'declare(' . $this->pCommaSeparated($node->declares) . ')';
+
+        if ($node->stmts === null) {
+            return $definition . ';';
+        }
+
+        return $definition . ' {' . $this->pStmts($node->stmts) . $this->nl . '}';
+    }
+
+    #[\Override]
+    protected function pMaybeMultiline(array $nodes, bool $trailingComma = false): string
+    {
+        $isInline = $this->hasNodeWithComments($nodes) || \count($nodes) > 3;
+
+        if (!$isInline) {
+            return $this->pCommaSeparated($nodes);
+        }
+
+        return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;
     }
 }
