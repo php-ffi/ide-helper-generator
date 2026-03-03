@@ -12,6 +12,7 @@ use FFI\Generator\Node\Type\StructTypeNode;
 use FFI\Generator\Node\Type\TypeDefinitionTypeNode;
 use FFI\Generator\Node\Type\TypeInterface;
 use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataBuilder;
+use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataCreateInfo;
 use FFI\Generator\TypeResolver\Direction;
 use FFI\Generator\TypeResolver\TypeResolverInterface;
 use PhpParser\Comment;
@@ -45,6 +46,7 @@ final readonly class PhpStormMetadataStructAutocompleteGenerator
         PHPDOC;
 
     public function __construct(
+        private PhpStormMetadataCreateInfo $config,
         private PhpStormMetadataBuilder $metadata,
         private TypeResolverInterface $typeResolver,
         private TypePrinterInterface $phpTypePrinter,

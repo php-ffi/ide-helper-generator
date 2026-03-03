@@ -7,6 +7,7 @@ namespace FFI\Generator\Printer\PhpStormMetadataPrinter\Generator;
 use FFI\Generator\Node\NamespaceNode;
 use FFI\Generator\Node\Type\OptionalNamedTypeInterface;
 use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataBuilder;
+use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataCreateInfo;
 use FFI\Generator\Support\BuiltinTypes;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Scalar\String_;
@@ -29,20 +30,10 @@ final readonly class PhpStormMetadataTypesAutocompleteGenerator
     private string $argumentSetName;
 
     public function __construct(
+        private PhpStormMetadataCreateInfo $config,
         private PhpStormMetadataBuilder $metadata,
     ) {
-        $this->argumentSetName = $this->createArgumentSetName();
-    }
-
-    /**
-     * @return non-empty-string
-     */
-    private function createArgumentSetName(): string
-    {
-        $prefix = new Randomizer()
-            ->getBytes(8);
-
-        return \bin2hex($prefix) . '_types';
+        $this->argumentSetName = $this->config->prefix . 'types';
     }
 
     /**
