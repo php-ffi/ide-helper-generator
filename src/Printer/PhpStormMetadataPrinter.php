@@ -10,7 +10,7 @@ use FFI\Generator\Printer\PhpStormMetadataPrinter\Generator\PhpStormMetadataStru
 use FFI\Generator\Printer\PhpStormMetadataPrinter\Generator\PhpStormMetadataTypesAutocompleteGenerator;
 use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataBuilder;
 use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataCreateInfo;
-use FFI\Generator\TypeResolver\TypeResolverInterface;
+use FFI\Generator\TypeResolver\Factory\TypeFactoryInterface;
 use PhpParser\Comment;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt as PhpStatement;
@@ -26,7 +26,7 @@ final readonly class PhpStormMetadataPrinter extends Printer
 
     public function __construct(
         private PhpStormMetadataCreateInfo $config = new PhpStormMetadataCreateInfo(),
-        ?TypeResolverInterface $typeResolver = null,
+        ?TypeFactoryInterface $typeFactory = null,
         ?PhpPrinterInterface $phpPrinter = null,
         ?TypePrinterInterface $phpTypePrinter = null,
         ?TypePrinterInterface $phpdocTypePrinter = null,
@@ -34,7 +34,7 @@ final readonly class PhpStormMetadataPrinter extends Printer
         $this->metadata = new PhpStormMetadataBuilder();
 
         parent::__construct(
-            typeResolver: $typeResolver,
+            typeFactory: $typeFactory,
             phpPrinter: $phpPrinter,
             phpTypePrinter: $phpTypePrinter,
             phpdocTypePrinter: $phpdocTypePrinter,
@@ -89,7 +89,7 @@ final readonly class PhpStormMetadataPrinter extends Printer
         $generator = new PhpStormMetadataStructAutocompleteGenerator(
             config: $this->config,
             metadata: $this->metadata,
-            typeResolver: $this->typeResolver,
+            typeFactory: $this->typeFactory,
             phpTypePrinter: $this->phpTypePrinter,
             phpdocTypePrinter: $this->phpdocTypePrinter,
         );

@@ -1,0 +1,16 @@
+{
+    "name": "local/type-resolver",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.4",
+        "local/ast": "^1.0",
+        "type-lang/parser": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "FFI\\Generator\\TypeResolver\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

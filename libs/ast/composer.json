@@ -1,0 +1,14 @@
+{
+    "name": "local/ast",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "FFI\\Generator\\Node\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

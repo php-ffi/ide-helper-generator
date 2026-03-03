@@ -14,7 +14,7 @@ use FFI\Generator\Node\Type\TypeInterface;
 use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataBuilder;
 use FFI\Generator\Printer\PhpStormMetadataPrinter\PhpStormMetadataCreateInfo;
 use FFI\Generator\TypeResolver\Direction;
-use FFI\Generator\TypeResolver\TypeResolverInterface;
+use FFI\Generator\TypeResolver\Factory\TypeFactoryInterface;
 use PhpParser\Comment;
 use PhpParser\Modifiers;
 use PhpParser\Node\Name;
@@ -48,7 +48,7 @@ final readonly class PhpStormMetadataStructAutocompleteGenerator
     public function __construct(
         private PhpStormMetadataCreateInfo $config,
         private PhpStormMetadataBuilder $metadata,
-        private TypeResolverInterface $typeResolver,
+        private TypeFactoryInterface $typeFactory,
         private TypePrinterInterface $phpTypePrinter,
         private TypePrinterInterface $phpdocTypePrinter,
     ) {}
@@ -58,7 +58,7 @@ final readonly class PhpStormMetadataStructAutocompleteGenerator
      */
     private function print(TypeInterface $type, Direction $direction): array
     {
-        $statement = $this->typeResolver->resolve($type, $direction);
+        $statement = $this->typeFactory->create($type, $direction);
 
         return [
             $this->phpTypePrinter->print($statement),

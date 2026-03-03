@@ -3,7 +3,15 @@
     "type": "library",
     "description": "FFI API generator for PHP",
     "license": "MIT",
-    "keywords": ["ffi", "generator", "ide", "helper", "autocomplete", "autocompletion", "utility"],
+    "keywords": [
+        "ffi",
+        "generator",
+        "ide",
+        "helper",
+        "autocomplete",
+        "autocompletion",
+        "utility"
+    ],
     "support": {
         "source": "https://github.com/php-ffi/ide-helper-generator",
         "issues": "https://github.com/php-ffi/ide-helper-generator/issues",
@@ -22,14 +30,16 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
-        "type-lang/parser": "^1.6",
-        "type-lang/printer": "^1.4",
         "nikic/php-parser": "^5.7",
-        "symfony/process": "^7.4|^8.0"
+        "symfony/process": "^7.4|^8.0",
+        "type-lang/parser": "^1.6",
+        "type-lang/printer": "^1.4"
     },
     "autoload": {
         "psr-4": {
-            "FFI\\Generator\\": "src"
+            "FFI\\Generator\\": "src",
+            "FFI\\Generator\\Node\\": "libs/ast/src",
+            "FFI\\Generator\\TypeResolver\\": "libs/type-resolver/src"
         }
     },
     "require-dev": {
@@ -37,23 +47,46 @@
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^12.5|^13.0",
-        "symfony/var-dumper": "^7.4|^8.0"
+        "symfony/var-dumper": "^7.4|^8.0",
+        "symplify/monorepo-builder": "^12.5"
     },
     "autoload-dev": {
         "psr-4": {
             "FFI\\Generator\\Tests\\": "tests"
         }
     },
-    "config": {
-        "sort-packages": true,
-        "optimize-autoloader": true
+    "replace": {
+        "local/ast": "*",
+        "local/type-resolver": "*"
+    },
+    "scripts-aliases": {
+        "test:unit": [
+            "test",
+            "phpunit",
+            "unit"
+        ],
+        "linter:check": [
+            "linter",
+            "stan"
+        ],
+        "phpcs:fix": [
+            "phpcs",
+            "cs",
+            "psr",
+            "per"
+        ]
     },
     "scripts": {
         "test:unit": "phpunit --testdox",
         "linter:check": "phpstan analyse --configuration phpstan.neon --memory-limit 256M",
         "linter:baseline": "@linter:check --generate-baseline",
         "phpcs:check": "@phpcs:fix --dry-run",
-        "phpcs:fix": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --verbose --diff"
+        "phpcs:fix": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --verbose --diff",
+        "dev:merge": "monorepo-builder merge"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "extra": {
         "branch-alias": {
