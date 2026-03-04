@@ -31,5 +31,7 @@ final class EnumerationTypeNode extends TypeNode implements
          * @var int<1, max>
          */
         public readonly int $align = 32,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

@@ -66,6 +66,19 @@ final readonly class PhpStormMetadataStructAutocompleteGenerator
         ];
     }
 
+    private function phpdocTypeToComment(string $type): Comment
+    {
+        $lines = \explode("\n", $type);
+
+        $formatted = \implode("\n * ", $lines);
+
+        return new Comment(\sprintf(<<<'PHPDOC'
+            /**
+             * @var %s
+             */
+            PHPDOC, $formatted));
+    }
+
     /**
      * @param non-empty-string $name
      * @param non-empty-string $type
@@ -75,7 +88,7 @@ final readonly class PhpStormMetadataStructAutocompleteGenerator
         $comments = [];
 
         if ($phpdocType !== $type) {
-            $comments[] = new Comment(\sprintf(self::PROPERTY_TEMPLATE, $phpdocType));
+            $comments[] = $this->phpdocTypeToComment($phpdocType);
         }
 
         $flags = Modifiers::PUBLIC;

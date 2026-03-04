@@ -34,7 +34,10 @@ data. To do this, `castxml` will be used, which in turn uses the original
 compiler (like `clang`) to build the AST.
 
 ```php
-echo new \FFI\Generator\CodeGenerator()
+use FFI\Generator\Printer\PhpStormMetadataPrinter;
+use FFI\Generator\CodeGenerator;
+
+echo new CodeGenerator()
     ->parse(__DIR__ . '/example-header.h')
     ->generate(new PhpStormMetadataPrinter())
     ->save(__DIR__ . '/resources/.phpstorm.meta.php');
@@ -46,9 +49,9 @@ After the metadata is generated, it should be parsed and an abstract syntax tree
 built in memory.
 
 ```php
-use FFI\Generator\Backup\Metadata\CastXMLParser;
+use FFI\Generator\CodeGenerator;
 
-$result = new \FFI\Generator\CodeGenerator()
+$result = new CodeGenerator()
     ->parse(__DIR__ . '/example-header.h');
 
 foreach ($result->nodes as $namespace) {

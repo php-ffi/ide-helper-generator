@@ -16,7 +16,7 @@ final readonly class PhpStormMetadataCreateInfo
          *
          * This file should not be included in your code, only analyzed by your IDE!
          *
-         * @link https://github.com/php-ffi/generator
+         * @link https://github.com/php-ffi/ide-helper-generator
          *
          * @psalm-suppress all
          */

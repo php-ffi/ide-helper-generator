@@ -20,5 +20,7 @@ final class RecordFieldNode extends Node
          * @var T
          */
         public TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

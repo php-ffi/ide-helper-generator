@@ -22,5 +22,7 @@ final class FunctionTypeNode extends Node implements TypeInterface
          * @var T
          */
         public readonly TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

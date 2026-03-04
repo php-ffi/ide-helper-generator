@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FFI\Generator\TypeResolver\Factory;
 
 use FFI\Generator\Node\Type\TypeInterface;
+use FFI\Generator\TypeResolver\ArrayTypeResolver;
 use FFI\Generator\TypeResolver\Context;
 use FFI\Generator\TypeResolver\CvQualifiedTypeResolver;
 use FFI\Generator\TypeResolver\Direction;
@@ -14,6 +15,7 @@ use FFI\Generator\TypeResolver\RecordPointerTypeResolver;
 use FFI\Generator\TypeResolver\RecordTypeResolver;
 use FFI\Generator\TypeResolver\StringTypeResolver;
 use FFI\Generator\TypeResolver\TypeDefinitionTypeResolver;
+use FFI\Generator\TypeResolver\TypePointerTypeResolver;
 use FFI\Generator\TypeResolver\TypeResolverInterface;
 use TypeLang\Parser\Node\Stmt\NamedTypeNode;
 use TypeLang\Parser\Node\Stmt\TypeStatement;
@@ -51,8 +53,10 @@ final readonly class TypeFactory implements
             new CvQualifiedTypeResolver(),
             new RecordPointerTypeResolver(),
             new RecordTypeResolver(),
+            new TypePointerTypeResolver(),
             new EnumTypeResolver(),
             new TypeDefinitionTypeResolver(),
+            new ArrayTypeResolver(),
         ]);
     }
 

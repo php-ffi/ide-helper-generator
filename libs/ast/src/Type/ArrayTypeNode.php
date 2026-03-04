@@ -17,12 +17,12 @@ final class ArrayTypeNode extends TypeNode implements GenericTypeInterface
          */
         public readonly TypeInterface $type,
         /**
-         * @var int<0, max>
-         */
-        public readonly int $min,
-        /**
+         * If size is {@see null}, then the array is unbounded.
+         *
          * @var int<0, max>|null
          */
-        public readonly ?int $max = null,
-    ) {}
+        public readonly ?int $size = null,
+    ) {
+        parent::__construct();
+    }
 }

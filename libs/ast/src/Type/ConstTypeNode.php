@@ -16,5 +16,7 @@ final class ConstTypeNode extends TypeNode implements TypeModifierInterface
          * @var T
          */
         public readonly TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

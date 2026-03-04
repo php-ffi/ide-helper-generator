@@ -60,5 +60,7 @@ final class NamespaceNode extends Node
          * @var non-empty-string|null
          */
         public readonly ?string $name = null,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

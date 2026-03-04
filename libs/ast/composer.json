@@ -2,7 +2,8 @@
     "name": "local/ast",
     "version": "1.0.0",
     "require": {
-        "php": "^8.4"
+        "php": "^8.4",
+        "nikic/php-parser": "^5.7"
     },
     "autoload": {
         "psr-4": {

@@ -16,5 +16,7 @@ final class VolatileTypeNode extends TypeNode implements TypeModifierInterface
          * @var T
          */
         public readonly TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

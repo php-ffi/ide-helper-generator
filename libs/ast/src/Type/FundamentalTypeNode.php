@@ -20,5 +20,7 @@ final class FundamentalTypeNode extends TypeNode implements
          * @var int<1, max>
          */
         public readonly int $align,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

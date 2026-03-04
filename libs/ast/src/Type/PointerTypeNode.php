@@ -16,7 +16,9 @@ final class PointerTypeNode extends TypeNode implements GenericTypeInterface
          * @var T
          */
         public readonly TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     /**
      * @template TArgType of TypeInterface

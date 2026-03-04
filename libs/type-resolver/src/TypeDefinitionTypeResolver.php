@@ -12,10 +12,10 @@ final readonly class TypeDefinitionTypeResolver implements TypeResolverInterface
 {
     public function tryResolve(TypeInterface $type, Context $ctx): ?TypeStatement
     {
-        if ($type instanceof TypeDefinitionTypeNode) {
-            return $ctx->resolver->tryResolve($type->type, $ctx);
+        if (!$type instanceof TypeDefinitionTypeNode) {
+            return null;
         }
 
-        return null;
+        return $ctx->resolver->tryResolve($type->type, $ctx);
     }
 }

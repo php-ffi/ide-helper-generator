@@ -17,5 +17,7 @@ class FunctionTypeArgumentNode extends Node
          */
         public readonly TypeInterface $type,
         public bool $isVariadic = false,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

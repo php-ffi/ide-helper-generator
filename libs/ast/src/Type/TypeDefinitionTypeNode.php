@@ -27,5 +27,7 @@ final class TypeDefinitionTypeNode extends TypeNode implements
          * @var T
          */
         public readonly TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace FFI\Generator\Node;
 
-abstract class Node implements NodeInterface
+use PhpParser\NodeAbstract;
+
+abstract class Node extends NodeAbstract implements
+    NodeInterface
 {
-    /**
-     * @var array<non-empty-string, mixed>
-     */
-    public array $attributes = [];
+    public function getType(): string
+    {
+        return \str_replace('\\', '_', static::class);
+    }
+
+    public function getSubNodeNames(): array
+    {
+        return [];
+    }
 }

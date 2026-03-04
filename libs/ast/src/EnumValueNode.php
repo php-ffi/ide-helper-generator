@@ -12,5 +12,7 @@ final class EnumValueNode extends Node
          */
         public readonly string $name,
         public readonly int $value,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

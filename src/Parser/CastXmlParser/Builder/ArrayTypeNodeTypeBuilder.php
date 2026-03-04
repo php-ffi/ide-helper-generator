@@ -22,12 +22,11 @@ final readonly class ArrayTypeNodeTypeBuilder extends TypeBuilder
             ->newLazyProxy(function () use ($el): ArrayTypeNode {
                 return new ArrayTypeNode(
                     type: $this->getTypeReference($el, 'type'),
-                    min: (int) $el->getAttribute('min'),
-                    max: match ($max = $el->getAttribute('max')) {
+                    size: match ($max = $el->getAttribute('max')) {
                         '' => null,
                         '-1' => 0,
-                        default => (int) $max,
-                    }
+                        default => (int) $max
+                    },
                 );
             });
     }

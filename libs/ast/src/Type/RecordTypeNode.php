@@ -8,7 +8,7 @@ use FFI\Generator\Node\DefinitionInterface;
 use FFI\Generator\Node\Location;
 use FFI\Generator\Node\RecordFieldNode;
 
-abstract class RecordTypeNode implements
+abstract class RecordTypeNode extends TypeNode implements
     OptionalNamedTypeInterface,
     DefinitionInterface
 {
@@ -24,5 +24,7 @@ abstract class RecordTypeNode implements
         public readonly ?string $name,
         public readonly Location $location,
         public readonly bool $isIncomplete = false,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }

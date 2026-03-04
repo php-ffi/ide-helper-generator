@@ -21,5 +21,7 @@ final class VariableNode extends Node implements DefinitionInterface
          * @var T
          */
         public readonly TypeInterface $type,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 }
