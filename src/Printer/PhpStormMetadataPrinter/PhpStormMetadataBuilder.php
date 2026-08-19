@@ -6,8 +6,8 @@ namespace FFI\Generator\Printer\PhpStormMetadataPrinter;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\ArrayItem;
-use PhpParser\Node\Expr as PhpExpression;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr as PhpExpression;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;

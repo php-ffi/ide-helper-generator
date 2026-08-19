@@ -14,7 +14,6 @@ use FFI\Generator\Node\Type\TypeInterface;
 abstract readonly class TypeBuilder extends Builder
 {
     /**
-     * @param \DOMElement $el
      * @return int<1, max>
      */
     protected function getSizeAttribute(\DOMElement $el): int
@@ -29,7 +28,6 @@ abstract readonly class TypeBuilder extends Builder
     }
 
     /**
-     * @param \DOMElement $el
      * @return int<1, max>
      */
     protected function getAlignAttribute(\DOMElement $el): int

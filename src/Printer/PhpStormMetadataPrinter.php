@@ -68,6 +68,7 @@ final readonly class PhpStormMetadataPrinter extends Printer
 
     /**
      * @param iterable<array-key, NamespaceNode> $nodes
+     *
      * @return list<PhpStatement>
      */
     private function getTypesAutocompleteStatements(iterable $nodes): array
@@ -82,6 +83,7 @@ final readonly class PhpStormMetadataPrinter extends Printer
 
     /**
      * @param iterable<array-key, NamespaceNode> $nodes
+     *
      * @return list<PhpStatement>
      */
     private function getStructStatements(iterable $nodes): array

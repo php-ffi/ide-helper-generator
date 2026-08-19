@@ -13,7 +13,6 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt as PhpStatement;
 use PhpParser\Node\Stmt\Expression;
-use Random\Randomizer;
 
 /**
  * Generates string autocompletion for {@see \FFI::new()}, {@see \FFI::cast()}

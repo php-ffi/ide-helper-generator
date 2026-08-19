@@ -37,8 +37,10 @@ final readonly class CodeGenerator
 
     /**
      * @template TArgResult of GeneratedResult
+     *
      * @param non-empty-string $pathname
      * @param PrinterInterface<TArgResult> $printer
+     *
      * @return TArgResult
      */
     public function parseAndGenerate(string $pathname, PrinterInterface $printer): GeneratedResult

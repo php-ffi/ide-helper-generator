@@ -54,6 +54,7 @@ final class ParsedResult
      * @template TArgResult of GeneratedResult
      *
      * @param PrinterInterface<TArgResult> $printer
+     *
      * @return TArgResult
      */
     public function generate(PrinterInterface $printer): GeneratedResult

@@ -31,6 +31,7 @@ final readonly class CastXmlDocument
 
     /**
      * @param list<string> $ids
+     *
      * @return list<\DOMElement>
      */
     public function getElementsByIdList(array $ids): array
@@ -54,6 +55,7 @@ final readonly class CastXmlDocument
 
     /**
      * @param non-empty-string $name
+     *
      * @return iterable<array-key, \DOMElement>
      */
     public function getElementsByTagName(string $name): iterable

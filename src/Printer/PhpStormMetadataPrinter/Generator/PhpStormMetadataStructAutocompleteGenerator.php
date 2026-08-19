@@ -172,6 +172,7 @@ final readonly class PhpStormMetadataStructAutocompleteGenerator
 
     /**
      * @param iterable<mixed, NamespaceNode> $nodes
+     *
      * @return array<string, string>
      */
     private function getStructNameMap(iterable $nodes): array

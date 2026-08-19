@@ -15,6 +15,6 @@ final readonly class CastXmlGeneratorResult
 
     public function __destruct()
     {
-        //@\unlink($this->pathname);
+        // @\unlink($this->pathname);
     }
 }

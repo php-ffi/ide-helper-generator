@@ -13,7 +13,7 @@ final readonly class BuiltinTypes
      * @link https://github.com/php/php-src/blob/php-8.5.0/ext/ffi/ffi.g#L807
      */
     private const array BUILTIN_PHP_TYPES = [
-                              // Windows x64   | Windows x86   | Linux x64
+        // Windows x64   | Windows x86   | Linux x64
         'void *',             // void*         | void*         | void*
         'bool',               // bool          | bool          | bool
         'float',              // float         | float         | float

@@ -16,6 +16,7 @@ interface PrinterInterface
 
     /**
      * @param iterable<mixed, NamespaceNode> $nodes
+     *
      * @return TResult
      */
     public function print(iterable $nodes, int $phpVersion = self::DEFAULT_PHP_VERSION): GeneratedResult;
