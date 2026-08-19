@@ -20,18 +20,9 @@ final readonly class CastXmlParser implements ParserInterface
      */
     private const string DEFAULT_CHARSET = 'UTF-8';
 
-    public CastXmlGenerator $generator;
-
-    /**
-     * @param non-empty-string $castXmlBinary
-     * @param non-empty-string|null $tempDirectory
-     */
     public function __construct(
-        string $castXmlBinary = CastXmlGenerator::DEFAULT_CAST_XML_BINARY,
-        ?string $tempDirectory = CastXmlGenerator::DEFAULT_TEMP_DIRECTORY,
-    ) {
-        $this->generator = new CastXmlGenerator($castXmlBinary, $tempDirectory);
-    }
+        public CastXmlGenerator $generator = new CastXmlGenerator(),
+    ) {}
 
     private function createDOMDocument(): \DOMDocument
     {
